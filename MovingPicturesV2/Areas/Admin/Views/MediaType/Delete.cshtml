@@ -1,0 +1,20 @@
+﻿@model MovingPicturesV2.Models.MediaTypeModel
+
+<form method="post" asp-action="DeletePOST">
+	<input asp-for="Id" hidden />
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Delete Media Type</h2>
+			<hr />
+		</div>
+		@* <div asp-validation-summary="All"></div> *@
+		<div class="mb-3">
+			<label asp-for="Name">Name</label>
+			<input asp-for="Name" class="form-control" disabled />
+
+		</div>
+
+		<button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
+		<a class="btn btn-secondary" asp-controller="MediaType" asp-action="Index">Back to List</a>
+	</div>
+</form>

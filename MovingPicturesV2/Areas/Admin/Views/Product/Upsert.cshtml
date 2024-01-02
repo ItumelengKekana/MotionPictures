@@ -1,0 +1,121 @@
+﻿@model MovingPicturesV2.Models.ViewModels.ProductVM
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+	<input asp-for="Product.Id" hidden />
+	<input asp-for="Product.ImageURL" hidden />
+
+	<div class="row">
+		<div class="col-10">
+			<div class="border p-3 mt-4 row">
+				<div class="col-12 pb-2">
+					<h2 class="text-primary">@(Model.Product.Id != 0 ? "Update" : "Create") Product</h2>
+					<hr />
+				</div>
+				@* <div asp-validation-summary="All"></div> *@
+				<div class="mb-3">
+					<label asp-for="Product.Title"></label>
+					<input asp-for="Product.Title" class="form-control" />
+					<span asp-validation-for="Product.Title" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Product.Synopsis">Synopsis</label>
+					<textarea rows="3" asp-for="Product.Synopsis" class="form-control"></textarea>
+					<span asp-validation-for="Product.Synopsis" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3 col-6">
+					<label asp-for="Product.ReleaseDate"></label>
+					<input asp-for="Product.ReleaseDate" class="form-control" />
+					<span asp-validation-for="Product.ReleaseDate" class="text-danger"></span>
+				</div>
+				<div class="mb-3 col-6">
+					<label asp-for="Product.Director"></label>
+					<input asp-for="Product.Director" class="form-control" />
+					<span asp-validation-for="Product.Director" class="text-danger"></span>
+				</div>
+				<div class="mb-3 col-6">
+					<label asp-for="Product.ListPrice"></label>
+					<input asp-for="Product.ListPrice" class="form-control" />
+					<span asp-validation-for="Product.ListPrice" class="text-danger"></span>
+				</div>
+				<div class="mb-3 col-6">
+					<label asp-for="Product.Price"></label>
+					<input asp-for="Product.Price" class="form-control" />
+					<span asp-validation-for="Product.Price" class="text-danger"></span>
+				</div>
+				<div class="mb-3 col-6">
+					<label asp-for="Product.Price50"></label>
+					<input asp-for="Product.Price50" class="form-control" />
+					<span asp-validation-for="Product.Price50" class="text-danger"></span>
+				</div>
+				<div class="mb-3 col-6">
+					<label asp-for="Product.Price100"></label>
+					<input asp-for="Product.Price100" class="form-control" />
+					<span asp-validation-for="Product.Price100" class="text-danger"></span>
+				</div>
+				<div class="mb-3 col-6">
+					<label asp-for="Product.ImageURL"></label>
+					<input type="file" class="form-control" name="file" id="uploadBox" />
+				</div>
+				<div class="mb-3 col-6">
+					<label asp-for="Product.GenreId"></label>
+					<select asp-for="Product.GenreId" asp-items="@Model.GenreList" class="form-select">
+						<option disabled selected>---Select Genre---</option>
+					</select>
+					<span asp-validation-for="Product.GenreId" class="text-danger"></span>
+				</div>
+				<div class="mb-3 col-6">
+					<label asp-for="Product.MediaTypeId"></label>
+					<select asp-for="Product.MediaTypeId" asp-items="@Model.MediaTypeList" class="form-select">
+						<option disabled selected>---Select Media Type---</option>
+					</select>
+					<span asp-validation-for="Product.MediaTypeId" class="text-danger"></span>
+				</div>
+				<div class="col-12 mb-4">
+					@if (Model.Product.Id != 0)
+					{
+
+						<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+					}
+					else
+
+					{
+						<button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+
+					}
+					<a class="btn btn-secondary" asp-controller="Product" asp-action="Index">Back to List</a>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-2 pt-4">
+			<img src="@Url.Content(Model.Product.ImageURL)" style="border-radius: 5px; border: 1px solid #bbb9b9" width="200" height="200" />
+		</div>
+	</div>
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	<script>
+		function ValidateInput() {
+			if (document.getElementById("uploadBox").value == "") {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Please upload an image!',
+				})
+				return false;
+			}
+			return true;
+		}
+	</script>
+	<script>
+		tinymce.init({
+			selector: 'textarea',
+			plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+		});
+	</script>
+}
