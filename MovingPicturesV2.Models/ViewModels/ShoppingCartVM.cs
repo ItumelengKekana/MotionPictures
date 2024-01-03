@@ -10,6 +10,7 @@ namespace MovingPicturesV2.Models.ViewModels
 	{
 		public IEnumerable<ShoppingCart> ListCart { get; set; }
 
-		public double CartTotal { get; set; }
+		public OrderHeaderModel OrderHeader { get; set; }
+
 	}
 }

@@ -5,6 +5,7 @@ using MovingPicturesV2.DataAccess.Data;
 using MovingPicturesV2.DataAccess.Repository;
 using MovingPicturesV2.DataAccess.Repository.IRepository;
 using MovingPicturesV2.Utility;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
 	builder.Configuration.GetConnectionString("DefaultConnection")
 	));
+//stripe service
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 
 //adding the identity user and a token generator that is not included by default
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
@@ -44,6 +47,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
 app.UseAuthorization();
 
