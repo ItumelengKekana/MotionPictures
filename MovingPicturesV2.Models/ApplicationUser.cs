@@ -19,7 +19,7 @@ namespace MovingPicturesV2.Models
 		public string? State { get; set; }
 		public string? PostalCode { get; set; }
 
-		public int CompanyId { get; set; }
+		public int? CompanyId { get; set; }
 
 		[ForeignKey("CompanyId")]
 		[ValidateNever]

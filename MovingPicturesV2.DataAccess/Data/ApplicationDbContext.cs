@@ -31,5 +31,7 @@ namespace MovingPicturesV2.DataAccess.Data
 		public DbSet<ApplicationUser> ApplicationUsers { get; set; } //creating the users table which extends IdentityUser
 		public DbSet<CompanyModel> Companies { get; set; } //creating the companies table
 		public DbSet<ShoppingCart> ShoppingCarts { get; set; } //creating the shopping cart table
+		public DbSet<OrderHeaderModel> OrderHeaders { get; set; }
+		public DbSet<OrderDetailModel> OrderDetails { get; set; }
 	}
 }
