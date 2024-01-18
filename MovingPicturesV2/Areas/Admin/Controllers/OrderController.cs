@@ -11,6 +11,8 @@ using System.Security.Claims;
 namespace MovingPicturesV2.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize]
+
 	public class OrderController : Controller
 	{
 		private readonly IUnitOfWork _unitOfWork;

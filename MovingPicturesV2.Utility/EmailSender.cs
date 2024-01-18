@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +11,23 @@ namespace MovingPicturesV2.Utility
 {
 	public class EmailSender : IEmailSender
 	{
-		//temporary implementation while setting up user roles
 		public Task SendEmailAsync(string email, string subject, string htmlMessage)
 		{
+			var emailToSend = new MimeMessage();
+			emailToSend.From.Add(MailboxAddress.Parse("itulearning1@gmail.com"));
+			emailToSend.To.Add(MailboxAddress.Parse(email));
+			emailToSend.Subject = subject;
+			emailToSend.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = htmlMessage };
+
+			//send email
+			using (var emailClient = new SmtpClient())
+			{
+				emailClient.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+				emailClient.Authenticate("itulearning1@gmail.com", "fcrs gtgu uegk xqom");
+				emailClient.Send(emailToSend);
+				emailClient.Disconnect(true);
+			}
+
 			return Task.CompletedTask;
 		}
 	}

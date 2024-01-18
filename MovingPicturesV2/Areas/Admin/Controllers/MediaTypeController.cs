@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovingPicturesV2.DataAccess.Repository.IRepository;
 using MovingPicturesV2.Models;
+using MovingPicturesV2.Utility;
 
 namespace MovingPicturesV2.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles = SD.Role_Admin)]
+
 	public class MediaTypeController : Controller
 	{
 		private readonly IUnitOfWork _unitOfWork;

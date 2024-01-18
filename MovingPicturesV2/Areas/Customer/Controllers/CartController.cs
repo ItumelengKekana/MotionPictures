@@ -6,6 +6,7 @@ using System.Security.Claims;
 using MovingPicturesV2.Utility;
 using MovingPicturesV2.Models;
 using Stripe.Checkout;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace MovingPicturesV2.Areas.Customer.Controllers
 {
@@ -14,13 +15,15 @@ namespace MovingPicturesV2.Areas.Customer.Controllers
 	public class CartController : Controller
 	{
 		private readonly IUnitOfWork _unitOfWork;
+		private readonly IEmailSender _emailSender;
 
 		[BindProperty]
 		public ShoppingCartVM ShoppingCartVM { get; set; }
 
-		public CartController(IUnitOfWork unitOfWork)
+		public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender)
 		{
 			_unitOfWork = unitOfWork;
+			_emailSender = emailSender;
 		}
 
 		public IActionResult Index()
@@ -183,6 +186,8 @@ namespace MovingPicturesV2.Areas.Customer.Controllers
 					_unitOfWork.Save();
 				}
 			}
+
+			_emailSender.SendEmailAsync(orderHeader.ApplicationUser.Email, "New Order - Motion Pictures", "<p>New Order Created!</p>");
 
 			List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
 			_unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);

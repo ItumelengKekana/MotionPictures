@@ -4,11 +4,14 @@ using MovingPicturesV2.Models;
 using MovingPicturesV2.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using MovingPicturesV2.Utility;
 
 namespace MovingPicturesV2.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CompanyController : Controller
+	[Authorize(Roles = SD.Role_Admin)]
+	public class CompanyController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
