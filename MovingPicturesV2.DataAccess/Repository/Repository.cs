@@ -45,7 +45,7 @@ namespace MovingPicturesV2.DataAccess.Repository
 			return query.ToList();
 		}
 
-		public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
+		public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true)
 		{
 			IQueryable<T> query = dbSet;
 

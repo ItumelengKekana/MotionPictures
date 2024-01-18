@@ -28,8 +28,4 @@
     <ProjectReference Include="..\MovingPicturesV2.Utility\MovingPicturesV2.Utility.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
-  </ItemGroup>
-
 </Project>

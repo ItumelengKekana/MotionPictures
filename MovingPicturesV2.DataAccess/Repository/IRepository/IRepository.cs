@@ -11,7 +11,7 @@ namespace MovingPicturesV2.DataAccess.Repository.IRepository
 	{
 		//T - Category
 
-		T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null); //receives our class (Category/T) and returns a boolean (whether the record was found or not)
+		T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true); //receives our class (Category/T) and returns a boolean (whether the record was found or not)
 		IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter=null, string? includeProperties = null);
 
 		void Add(T entity);
